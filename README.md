@@ -1,0 +1,1 @@
+# CIVisibility.Samples.Framework472.MsTest
