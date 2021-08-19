@@ -43,6 +43,7 @@ steps:
     configuration: '$(buildConfiguration)'
 
 # **********************************************************
+
 # Ensure dotnet 5.0 SDK (required to install dd-trace CLI)
 - task: UseDotNet@2
   displayName: (CI-VISIBILITY) Install dotnet core SDK 5
@@ -53,6 +54,10 @@ steps:
 # Install dotnet dd-trace tool
 - script: dotnet tool update -g dd-trace
   displayName: (CI-VISIBILITY) Install dd-trace dotnet tool
+
+# Configure pipeline to use CI Visibility
+- script: dd-trace --set-ci
+  displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
 
 # **********************************************************
 
