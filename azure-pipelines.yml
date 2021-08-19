@@ -14,6 +14,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   ddApiKey: $(DD_API_KEY)
+  DD_ENV: CI
 
 # Declare the datadog agent as a resource to be used as a pipeline service
 resources:
