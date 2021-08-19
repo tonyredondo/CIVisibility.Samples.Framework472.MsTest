@@ -42,6 +42,20 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+# **********************************************************
+# Ensure dotnet 5.0 SDK (required to install dd-trace CLI)
+- task: UseDotNet@2
+  displayName: (CI-VISIBILITY) Install dotnet core SDK 5
+  inputs:
+    packageType: sdk
+    version: 5.x
+
+# Install dotnet dd-trace tool
+- script: dotnet tool update -g dd-trace
+  displayName: (CI-VISIBILITY) Install dd-trace dotnet tool
+
+# **********************************************************
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
