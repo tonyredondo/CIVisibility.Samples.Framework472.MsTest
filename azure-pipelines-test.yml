@@ -22,6 +22,9 @@ resources:
         DD_API_KEY: $(ddApiKey)
         DD_INSIDE_CI: true
 
+services:
+  dd_agent: dd_agent
+
 steps:
 - checkout: self
   
