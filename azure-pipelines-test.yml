@@ -1,0 +1,70 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  ddApiKey: $(DD_API_KEY)
+
+resources:
+  containers:
+    - container: dd_agent
+      image: datadog/agent:latest
+      ports: 
+        - 8126:8126
+      env:
+        DD_API_KEY: $(ddApiKey)
+        DD_INSIDE_CI: true
+
+steps:
+- checkout: self
+  
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+# ******************
+# Setting up DD CI monitoring
+# ******************
+- task: UseDotNet@2
+  displayName: (CI-VISIBILITY) Install dotnet 5
+  inputs:
+    packageType: sdk
+    version: 5.x
+
+- script: dotnet tool update -g dd-trace
+  displayName: (CI-VISIBILITY) Install dd-trace
+
+- script: dd-trace --set-ci
+  displayName: (CI-VISIBILITY) Configure pipeline to use DD CI Visibility
+
+# ******************
+# End DD CI monitoring setup
+# ******************
+
+- task: VSTest@2
+  displayName: 'Run Tests'
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
