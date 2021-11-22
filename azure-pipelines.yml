@@ -66,7 +66,7 @@ steps:
 - pwsh: hostname
   displayName: Get HostName
 
-- pwsh: [System.Net.Dns]::GetHostName()
+- pwsh: "[System.Net.Dns]::GetHostName()"
   displayName: Get HostName
   
 # **********************************************************
