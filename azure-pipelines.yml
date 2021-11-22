@@ -25,7 +25,7 @@ resources:
     - 8126:8126
     env:
       DD_API_KEY: $(ddApiKey)
-      DD_INSIDE_CI: true
+      #DD_INSIDE_CI: true
 
 services:
   dd_agent: dd_agent
