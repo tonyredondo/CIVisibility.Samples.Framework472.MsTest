@@ -60,6 +60,9 @@ steps:
 - script: dd-trace --set-ci
   displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
 
+- script: dir env:
+  displayName: List Environment Variables
+
 # **********************************************************
 
 - task: VSTest@2
