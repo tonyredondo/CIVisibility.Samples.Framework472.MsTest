@@ -63,6 +63,12 @@ steps:
 - pwsh: "dir Env:"
   displayName: List Environment Variables
 
+- pwsh: hostname
+  displayName: Get HostName
+
+- pwsh: [System.Net.Dns]::GetHostName()
+  displayName: Get HostName
+  
 # **********************************************************
 
 - task: VSTest@2
