@@ -34,6 +34,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+
+
 # **********************************************************
 
 # Ensure dotnet 6.0 SDK (required to install dd-trace CLI)
@@ -53,9 +55,23 @@ steps:
 
 # **********************************************************
 
+
+
 - task: VSTest@2
   env:
     DD_API_KEY: $(ddApiKey)
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+
+
+# **********************************************************
+
+# Configure pipeline to use CI Visibility
+- script: dir "C:\ProgramData\Datadog .NET Tracer\logs"
+  displayName: (CI-VISIBILITY) List CI Visibility logs list
+  condition: always()
+
+# **********************************************************
