@@ -14,7 +14,11 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   ddApiKey: $(DD_API_KEY)
+
+  # Environment CI.
   DD_ENV: CI
+
+  # Use CI Visibility Agentless mode.
   DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
 
 steps:
