@@ -70,6 +70,5 @@ steps:
 # **********************************************************
 
 - powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
-  displayName: (CI-VISIBILITY) List CI Visibility logs list
 
 # **********************************************************
