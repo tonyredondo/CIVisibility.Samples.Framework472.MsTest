@@ -55,7 +55,7 @@ steps:
   displayName: (CI-VISIBILITY) Create Logs folder
   condition: always()
   inputs:
-    script: mkdir "C:\ProgramData\Datadog .NET Tracer\logs"
+    script: mkdir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
 
 # Configure pipeline to use CI Visibility
 - task: CmdLine@2
@@ -80,6 +80,6 @@ steps:
   displayName: (CI-VISIBILITY) List CI Visibility logs list
   condition: always()
   inputs:
-    script: dir "C:\ProgramData\Datadog .NET Tracer\logs"
+    script: dir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
 
 # **********************************************************
