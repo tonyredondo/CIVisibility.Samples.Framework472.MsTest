@@ -53,26 +53,26 @@ steps:
   displayName: (CI-VISIBILITY) Create Logs folder
   condition: always()
 
-- powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
-  condition: always()
-
 # Configure pipeline to use CI Visibility
 - script: dd-trace ci configure
   displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
 
-# **********************************************************
+- powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
+  condition: always()
 
+# **********************************************************
 - task: VSTest@2
   env:
     DD_API_KEY: $(ddApiKey)
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-
 # **********************************************************
 
 - powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
+  condition: always()
+
+- powershell: Get-ChildItem
   condition: always()
 
 # **********************************************************
