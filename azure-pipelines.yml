@@ -71,11 +71,10 @@ steps:
     configuration: '$(buildConfiguration)'
 # **********************************************************
 
-- powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
-  condition: always()
-  env:
-    COR_ENABLE_PROFILING: 0
-    CORECLR_ENABLE_PROFILING: 0
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(PROGRAMDATA)\\Datadog .NET Tracer\\logs'
+    artifactName: logs
 
 
 # **********************************************************
