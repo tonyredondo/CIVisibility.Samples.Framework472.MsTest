@@ -24,6 +24,9 @@ variables:
   #Enable debug logs
   DD_TRACE_DEBUG: 1
 
+  #Exclude Process
+  DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe;powershell.exe
+
 steps:
 - task: NuGetToolInstaller@1
 
