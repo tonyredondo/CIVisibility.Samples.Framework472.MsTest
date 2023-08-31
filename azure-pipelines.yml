@@ -80,6 +80,7 @@ steps:
   displayName: (CI-VISIBILITY) List CI Visibility logs list
   condition: always()
   inputs:
-    script: dir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+    script: dir
+    workingDirectory: "%PROGRAMDATA%\Datadog .NET Tracer\logs"
 
 # **********************************************************
