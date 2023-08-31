@@ -69,9 +69,7 @@ steps:
 
 # **********************************************************
 
-# Configure pipeline to use CI Visibility
-- script: dir
+- powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
   displayName: (CI-VISIBILITY) List CI Visibility logs list
-  workingDirectory: $(PROGRAMDATA)\\Datadog .NET Tracer\\logs
 
 # **********************************************************
