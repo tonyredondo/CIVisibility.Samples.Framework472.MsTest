@@ -25,7 +25,6 @@ variables:
   DD_TRACE_DEBUG: 1
 
   #Exclude Process
-  #DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe
   DD_PROFILER_EXCLUDE_PROCESSES: powershell.exe
 
   #Stop Git upload (is returning exit code 128)
@@ -76,11 +75,7 @@ steps:
     configuration: '$(buildConfiguration)'
 # **********************************************************
 
-# Ensure logs folder exists
-- script: dir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
-  displayName: (CI-VISIBILITY) Create Logs folder
-  condition: always()
-
+# Publish logs
 - task: PublishBuildArtifacts@1
   condition: always()
   inputs:
