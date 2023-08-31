@@ -21,6 +21,9 @@ variables:
   # Use CI Visibility Agentless mode.
   DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
 
+  #Enable debug logs
+  DD_TRACE_DEBUG: 1
+
 steps:
 - task: NuGetToolInstaller@1
 
