@@ -25,7 +25,8 @@ variables:
   DD_TRACE_DEBUG: 1
 
   #Exclude Process
-  DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe
+  #DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe
+  DD_PROFILER_EXCLUDE_PROCESSES: powershell.exe
 
   #Stop Git upload (is returning exit code 128)
   #DD_CIVISIBILITY_GIT_UPLOAD_ENABLED: 0
