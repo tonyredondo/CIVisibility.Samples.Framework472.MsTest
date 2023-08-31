@@ -81,6 +81,6 @@ steps:
   condition: always()
   inputs:
     script: dir
-    workingDirectory: "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+    workingDirectory: "%PROGRAMDATA%/Datadog .NET Tracer/logs"
 
 # **********************************************************
