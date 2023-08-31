@@ -25,10 +25,10 @@ variables:
   DD_TRACE_DEBUG: 1
 
   #Exclude Process
-  DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe;powershell.exe
+  DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe
 
   #Stop Git upload (is returning exit code 128)
-  DD_CIVISIBILITY_GIT_UPLOAD_ENABLED: 0
+  #DD_CIVISIBILITY_GIT_UPLOAD_ENABLED: 0
 
 steps:
 - task: NuGetToolInstaller@1
