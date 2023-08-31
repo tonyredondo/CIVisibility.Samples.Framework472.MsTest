@@ -76,3 +76,8 @@ steps:
 
 
 # **********************************************************
+
+# Ensure logs folder exists
+- script: dir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+  displayName: (CI-VISIBILITY) Create Logs folder
+  condition: always()
