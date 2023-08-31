@@ -45,23 +45,17 @@ steps:
     version: 6.x
 
 # Install dotnet dd-trace tool
-- task: CmdLine@2
+- script: dotnet tool update -g dd-trace
   displayName: (CI-VISIBILITY) Install dd-trace dotnet tool
-  inputs:
-    script: dotnet tool update -g dd-trace
 
 # Ensure logs folder exists
-- task: CmdLine@2
+- script: mkdir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
   displayName: (CI-VISIBILITY) Create Logs folder
   condition: always()
-  inputs:
-    script: mkdir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
 
 # Configure pipeline to use CI Visibility
-- task: CmdLine@2
+- script: dd-trace ci configure
   displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
-  inputs:
-    script: dd-trace ci configure
 
 # **********************************************************
 
@@ -76,11 +70,8 @@ steps:
 # **********************************************************
 
 # Configure pipeline to use CI Visibility
-- task: CmdLine@2
+- script: dir
   displayName: (CI-VISIBILITY) List CI Visibility logs list
-  condition: always()
-  inputs:
-    script: dir
-    workingDirectory: $(PROGRAMDATA)\\Datadog .NET Tracer\\logs
+  workingDirectory: $(PROGRAMDATA)\\Datadog .NET Tracer\\logs
 
 # **********************************************************
