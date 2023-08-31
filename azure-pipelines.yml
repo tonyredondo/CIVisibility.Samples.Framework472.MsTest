@@ -53,15 +53,14 @@ steps:
   displayName: (CI-VISIBILITY) Create Logs folder
   condition: always()
 
+# Ensure logs folder exists
+- script: echo "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+  displayName: (CI-VISIBILITY) Create Logs folder
+  condition: always()
+
 # Configure pipeline to use CI Visibility
 - script: dd-trace ci configure
   displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
-
-- powershell: Get-ChildItem -Path (-join($env:PROGRAMDATA, '\\Datadog .NET Tracer\\logs'))
-  condition: always()
-  env:
-    COR_ENABLE_PROFILING: 0
-    CORECLR_ENABLE_PROFILING: 0
 
 # **********************************************************
 - task: VSTest@2
@@ -78,10 +77,5 @@ steps:
     COR_ENABLE_PROFILING: 0
     CORECLR_ENABLE_PROFILING: 0
 
-- powershell: Get-ChildItem
-  condition: always()
-  env:
-    COR_ENABLE_PROFILING: 0
-    CORECLR_ENABLE_PROFILING: 0
 
 # **********************************************************
