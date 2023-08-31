@@ -14,21 +14,12 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   ddApiKey: $(DD_API_KEY)
+
+  # Environment CI.
   DD_ENV: CI
 
-# Declare the datadog agent as a resource to be used as a pipeline service
-resources:
-  containers:
-  - container: dd_agent
-    image: datadog/agent
-    ports:
-    - 8126:8126
-    env:
-      DD_API_KEY: $(ddApiKey)
-      DD_INSIDE_CI: true
-
-services:
-  dd_agent: dd_agent
+  # Use CI Visibility Agentless mode.
+  DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
 
 steps:
 - task: NuGetToolInstaller@1
@@ -43,26 +34,47 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+
 # **********************************************************
 
-# Ensure dotnet 5.0 SDK (required to install dd-trace CLI)
+# Ensure dotnet 6.0 SDK (required to install dd-trace CLI)
 - task: UseDotNet@2
-  displayName: (CI-VISIBILITY) Install dotnet core SDK 5
+  displayName: (CI-VISIBILITY) Install dotnet core SDK 6
   inputs:
     packageType: sdk
-    version: 5.x
+    version: 6.x
 
 # Install dotnet dd-trace tool
 - script: dotnet tool update -g dd-trace
   displayName: (CI-VISIBILITY) Install dd-trace dotnet tool
 
+# Ensure logs folder exists
+- script: mkdir "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+  displayName: (CI-VISIBILITY) Create Logs folder
+  condition: always()
+
+# Ensure logs folder exists
+- script: echo "%PROGRAMDATA%\Datadog .NET Tracer\logs"
+  displayName: (CI-VISIBILITY) Create Logs folder
+  condition: always()
+
 # Configure pipeline to use CI Visibility
-- script: dd-trace --set-ci
+- script: dd-trace ci configure
   displayName: (CI-VISIBILITY) Configure pipeline to use CI Visibility
 
 # **********************************************************
-
 - task: VSTest@2
+  env:
+    DD_API_KEY: $(ddApiKey)
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+# **********************************************************
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(PROGRAMDATA)\\Datadog .NET Tracer\\logs'
+    artifactName: logs
+
+
+# **********************************************************
