@@ -21,14 +21,8 @@ variables:
   # Use CI Visibility Agentless mode.
   DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
 
-  #Enable debug logs
-  DD_TRACE_DEBUG: 1
-
-  #Exclude Process
-  DD_PROFILER_EXCLUDE_PROCESSES: powershell.exe
-
-  #Stop Git upload (is returning exit code 128)
-  #DD_CIVISIBILITY_GIT_UPLOAD_ENABLED: 0
+  # Exclude known processes
+  DD_PROFILER_EXCLUDE_PROCESSES: DTAExecutionHost.exe;powershell.exe
 
 steps:
 - task: NuGetToolInstaller@1
