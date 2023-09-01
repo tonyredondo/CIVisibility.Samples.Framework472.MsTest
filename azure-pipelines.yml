@@ -71,6 +71,7 @@ steps:
 
 # Publish logs
 - task: PublishBuildArtifacts@1
+  displayName: (CI-VISIBILITY) Publish Logs
   condition: always()
   inputs:
     pathToPublish: '$(PROGRAMDATA)\\Datadog .NET Tracer\\logs'
