@@ -37,14 +37,12 @@ steps:
 
 # **********************************************************
 
-# Ensure dotnet 6.0 SDK (required to install dd-trace CLI)
+# we need a new dotnet sdk to install dotnet tools (required to install dd-trace CLI)
 - task: UseDotNet@2
   displayName: (CI-VISIBILITY) Install dotnet core SDK 6
   inputs:
     packageType: sdk
-    version: |
-      6.x
-      8.x
+    version: 6.x
 
 # Install dotnet dd-trace tool
 - script: dotnet tool update -g dd-trace
