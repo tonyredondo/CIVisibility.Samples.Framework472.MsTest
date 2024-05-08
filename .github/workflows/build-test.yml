@@ -1,0 +1,56 @@
+name: .NET Desktop CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DD_API_KEY: ${{ secrets.DD_API_KEY }}
+      DD_ENV: CI
+      DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
+      SOLUTION: '**/*.sln'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore $SOLUTION
+
+      - name: Build solution
+        run: |
+          msbuild $SOLUTION /p:Platform="Any CPU" /p:Configuration=Release
+
+      - name: Install .NET 6 SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.x
+
+      - name: Install dd-trace dotnet tool
+        run: dotnet tool update -g dd-trace
+
+      - name: Configure pipeline to use CI Visibility
+        run: dd-trace ci configure
+
+      - name: Run tests
+        uses: microsoft/vstest-action@main
+        with:
+          testAssembly: '**\*MsTest.dll'
+          platform: 'Any CPU'
+
+      - name: Publish Logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: '$PROGRAMDATA\Datadog .NET Tracer\logs'
