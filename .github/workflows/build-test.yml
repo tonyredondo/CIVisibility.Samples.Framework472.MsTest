@@ -47,8 +47,6 @@ jobs:
         with:
           testAssembly: '**\*MsTest.dll'
           platform: 'Any CPU'
-          configuration: Release
-          logger: console
 
       - name: Publish Logs
         if: always()
