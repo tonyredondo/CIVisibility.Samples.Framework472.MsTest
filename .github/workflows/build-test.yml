@@ -45,7 +45,7 @@ jobs:
       - name: Run tests
         uses: microsoft/vstest-action@main
         with:
-          testAssembly: '**\*Tests.dll'
+          testAssembly: '**\*MsTest.dll'
           platform: 'Any CPU'
           configuration: Release
           logger: console
