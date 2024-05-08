@@ -23,8 +23,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install NuGet
-        uses: nuget/nuget@v1
+#      - name: Install NuGet
+#        uses: nuget/setup-nuget@v2
 
       - name: Restore NuGet packages
         run: nuget restore $(solution)
@@ -45,7 +45,7 @@ jobs:
         run: dd-trace ci configure
 
       - name: Run tests
-        uses: microsoft-approved-actions/vstest@master
+        uses: microsoft/vstest-action@master
         with:
           testAssembly: '**\*Tests.dll'
           platform: $(buildPlatform)
