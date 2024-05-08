@@ -24,6 +24,10 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      - name: List environment variables
+        run: |
+          dir env:
+
       - name: Restore NuGet packages
         run: nuget restore $SOLUTION
 
