@@ -15,7 +15,7 @@ jobs:
       DD_API_KEY: ${{ secrets.DD_API_KEY }}
       DD_ENV: CI
       DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
-      solution: '**/*.sln'
+      SOLUTION: '**/*.sln'
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
 
@@ -27,11 +27,11 @@ jobs:
 #        uses: nuget/setup-nuget@v2
 
       - name: Restore NuGet packages
-        run: nuget restore $(solution)
+        run: nuget restore $SOLUTION
 
       - name: Build solution
         run: |
-          msbuild $(solution) /p:Platform=$(buildPlatform) /p:Configuration=$(buildConfiguration)
+          msbuild $SOLUTION /p:Platform=$(buildPlatform) /p:Configuration=$(buildConfiguration)
 
       - name: Install .NET 6 SDK
         uses: actions/setup-dotnet@v2
