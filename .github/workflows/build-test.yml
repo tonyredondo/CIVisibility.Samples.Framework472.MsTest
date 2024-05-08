@@ -45,7 +45,7 @@ jobs:
         run: dd-trace ci configure
 
       - name: Run tests
-        uses: microsoft/vstest-action@master
+        uses: microsoft/vstest-action@main
         with:
           testAssembly: '**\*Tests.dll'
           platform: $(buildPlatform)
