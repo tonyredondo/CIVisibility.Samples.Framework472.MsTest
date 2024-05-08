@@ -16,8 +16,8 @@ jobs:
       DD_ENV: CI
       DD_CIVISIBILITY_AGENTLESS_ENABLED: 1
       SOLUTION: '**/*.sln'
-      buildPlatform: 'Any CPU'
-      buildConfiguration: 'Release'
+      BuildPlatform: 'Any CPU'
+      BuildConfiguration: 'Release'
 
     steps:
       - name: Checkout code
@@ -31,7 +31,7 @@ jobs:
 
       - name: Build solution
         run: |
-          msbuild $SOLUTION /p:Platform=$(buildPlatform) /p:Configuration=$(buildConfiguration)
+          msbuild $SOLUTION /p:Platform=$BuildPlatform /p:Configuration=$BuildConfiguration
 
       - name: Install .NET 6 SDK
         uses: actions/setup-dotnet@v2
@@ -48,8 +48,8 @@ jobs:
         uses: microsoft/vstest-action@main
         with:
           testAssembly: '**\*Tests.dll'
-          platform: $(buildPlatform)
-          configuration: $(buildConfiguration)
+          platform: $BuildPlatform
+          configuration: $BuildConfiguration
           logger: console
 
       - name: Publish Logs
