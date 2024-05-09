@@ -24,6 +24,11 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      - name: where
+        shell: cmd
+        run: |
+          where vstest.console
+
       - name: Restore NuGet packages
         run: nuget restore $SOLUTION
 
